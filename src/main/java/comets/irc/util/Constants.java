@@ -10,6 +10,9 @@ public class Constants {
     public static final String DEFAULT_PORT = "6667";
     public static final int DEFAULT_PORT_INT = 6667;
 
+    public static final String PING = "ping";
+    public static final String PONG = "pong";
+
     public static final String CONNECTING_STATUS = "connecting...";
     public static final String CONNECTED_STATUS = "connected";
     public static final String NOT_CONNECTED_STATUS = "not connected";

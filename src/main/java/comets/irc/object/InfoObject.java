@@ -9,5 +9,8 @@ public interface InfoObject {
     void setConnectionStatus(String status);
     void setLoginStatus(String status);
     void setJoinStatus(String status);
+    void addPostToHistory(String post);
+    ArrayList<String> getPostHistory();
+
 
 }

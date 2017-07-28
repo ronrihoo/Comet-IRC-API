@@ -6,6 +6,7 @@ public class IrcSessionInfo implements InfoObject {
 
     int id;
     ArrayList<String> userList = null;
+    ArrayList<String> postHistory = null;
     String provider = null;
     String server = null;
     String port = null;
@@ -17,7 +18,7 @@ public class IrcSessionInfo implements InfoObject {
     String status = null;
 
     public IrcSessionInfo() {
-
+        postHistory = new ArrayList<>();
     }
 
     public IrcSessionInfo(String provider, String server, String port,
@@ -28,6 +29,7 @@ public class IrcSessionInfo implements InfoObject {
         this.channel = channel;
         this.nick = nick;
         this.status = status;
+        this.postHistory = new ArrayList<>();
     }
 
     public int getId() {
@@ -114,6 +116,16 @@ public class IrcSessionInfo implements InfoObject {
 
     public void setJoinStatus(String joinStatus) {
         this.joinStatus = joinStatus;
+    }
+
+    @Override
+    public void addPostToHistory(String post) {
+       postHistory.add(post);
+    }
+
+    @Override
+    public ArrayList<String> getPostHistory() {
+        return this.postHistory;
     }
 
     public void setStatus(String status) {

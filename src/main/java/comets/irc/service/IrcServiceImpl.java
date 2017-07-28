@@ -5,6 +5,7 @@ import comets.irc.util.Constants;
 import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -107,6 +108,16 @@ public class IrcServiceImpl implements IrcService {
             minute = "0" + minute;
         }
         return "[" + hour + ":" + minute + "] ";
+    }
+
+    @Override
+    public void addPostToHistory(String post) {
+        userInterface.addPostToHistory(post);
+    }
+
+    @Override
+    public ArrayList<String> getPostHistory() {
+        return userInterface.getPostHistory();
     }
 
     @Override

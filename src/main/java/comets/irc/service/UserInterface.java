@@ -113,4 +113,14 @@ public class UserInterface implements UserInterfaceService {
 
     }
 
+    @Override
+    public void addPostToHistory(String post) {
+        ircSessionInfo.addPostToHistory(post);
+    }
+
+    @Override
+    public ArrayList<String> getPostHistory() {
+        return ircSessionInfo.getPostHistory();
+    }
+
 }

@@ -74,20 +74,20 @@ public class IrcClientApi {
     public static String processLine(String line) {
         return client.processLine(line);
     };
+    public static String read() {
+        return processLine(receive());
+    }
     public static void post(String line) {
         /*
-         * This method is meant for storing each line in post history;
-         * however, post history is not currently implemented
-         *
-         * TODO: create an optional post history implementation
+         * This method stores each sent line in the post history (ArrayList<String>)
          */
         client.post(line);
     };
     public static void print(String line) {
         client.print(line);
     };
-    public static void ping(String target) {
-        client.ping(target);
+    public static void ping() {
+        client.ping();
     };
     public static void pong() {
         client.pong();
@@ -113,15 +113,18 @@ public class IrcClientApi {
         client.setCurrentSessionInfo(provider, channel, nick, connectionStatus,
                 loginStatus, joinStatus);
     };
+    public static ArrayList<String> getPostHistory() {
+        return client.getPostHistory();
+    };
     // user list events
-    public static void whoisUser(String user) {
-        client.whoisUser(user);
+    public static void whois(String user) {
+        client.whois(user);
     };
-    public static void ignoreUser(String user) {
-        client.ignoreUser(user);
+    public static void ignore(String user) {
+        client.ignore(user);
     };
-    public static void unignoreUser(String user) {
-        client.unignoreUser(user);
+    public static void unignore(String user) {
+        client.unignore(user);
     };
     public static void saveUser(String user) {
         client.saveUser(user);

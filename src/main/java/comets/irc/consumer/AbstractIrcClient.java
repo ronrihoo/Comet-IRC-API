@@ -117,6 +117,7 @@ public abstract class AbstractIrcClient implements IrcConsumer {
 
     @Override
     public void post(String line) {
+        ircService.addPostToHistory(line);
         send(line);
     }
 
@@ -126,13 +127,13 @@ public abstract class AbstractIrcClient implements IrcConsumer {
     }
 
     @Override
-    public void ping(String target) {
-
+    public void ping() {
+        post(Constants.PING);
     }
 
     @Override
     public void pong() {
-
+        post(Constants.PONG);
     }
 
     @Override
@@ -147,6 +148,7 @@ public abstract class AbstractIrcClient implements IrcConsumer {
 
     @Override
     public void quit() {
+        disconnect();
         ircService.quit();
     }
 
@@ -243,12 +245,17 @@ public abstract class AbstractIrcClient implements IrcConsumer {
     }
 
     @Override
-    public void whoisUser(String user) {
+    public ArrayList<String> getPostHistory() {
+        return ircService.getPostHistory();
+    }
+
+    @Override
+    public void whois(String user) {
 
     }
 
     @Override
-    public void ignoreUser(String user) {
+    public void ignore(String user) {
 
     }
 

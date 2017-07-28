@@ -22,5 +22,7 @@ public interface UserInterfaceService {
     void setCurrentConnectionStatus(String status);
     void setCurrentLoginStatus(String status);
     void setCurrentJoinStatus(String status);
+    void addPostToHistory(String post);
+    ArrayList<String> getPostHistory();
 
 }

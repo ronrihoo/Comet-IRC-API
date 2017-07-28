@@ -22,9 +22,9 @@ public interface IrcConsumer {
     void send(String line);     // not saved in post history
     String receive();
     String processLine(String line);
-    void post(String line);     // is saved in post history (TODO: implement post history)
+    void post(String line);     // is saved in post history
     void print(String line);
-    void ping(String target);
+    void ping();
     void pong();
     void leave();
     void logout();
@@ -46,10 +46,11 @@ public interface IrcConsumer {
     void setCurrentSessionInfo(String provider, String channel, String nick,
                                String connectionStatus, String loginStatus,
                                String joinStatus);
+    ArrayList<String> getPostHistory();
     // user list events
-    void whoisUser(String user);
-    void ignoreUser(String user);
-    void unignoreUser(String user);
+    void whois(String user);
+    void ignore(String user);
+    void unignore(String user);
     void saveUser(String user);
     void queryUser(String user);
     // client

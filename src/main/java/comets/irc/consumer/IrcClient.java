@@ -138,9 +138,6 @@ public class IrcClient extends AbstractIrcClient {
                         break;
                     }
                 }
-                if (irc.isJoinedInChannel()) {
-                    idle();
-                }
             }
         }
     }
@@ -259,18 +256,18 @@ public class IrcClient extends AbstractIrcClient {
     }
 
     @Override
-    public void whoisUser(String user) {
+    public void whois(String user) {
         System.out.println(user);
         send(irc.whois(user));
     }
 
     @Override
-    public void ignoreUser(String user) {
+    public void ignore(String user) {
         send(irc.ignore(user));
     }
 
     @Override
-    public void unignoreUser(String user) {
+    public void unignore(String user) {
         send(irc.unignore(user));
     }
 
