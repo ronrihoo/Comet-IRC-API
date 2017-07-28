@@ -162,13 +162,13 @@ Result:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sends a 'ping' message
 
-&nbsp;&nbsp;&nbsp;&nbsp;Same as: post("ping");
+&nbsp;&nbsp;&nbsp;&nbsp;This message is not saved in the post history
 
 `pong()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sends a 'pong' message
 
-&nbsp;&nbsp;&nbsp;&nbsp;Same as: post("pong");
+&nbsp;&nbsp;&nbsp;&nbsp;This message is not saved in the post history and it is not the same as sending a pong back to a ping request from the server. Ping responses are handled silently in the background
 
 `post(String message)`
 
