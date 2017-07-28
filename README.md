@@ -14,9 +14,9 @@ An Internet Relay Chat API for Java.
 
 4. Add JAR to build path
 
-IDEA: From the _Project_ window (ALT+1), select and right-click the "lib" folder, then click `Add as Library...`
+   IDEA: From the _Project_ window (ALT+1), select and right-click the "lib" folder, then click `Add as Library...`
 
-Eclipse: From the _Package Explorer_ window, select and right-click the JAR file, then select `Build' and click `Add to Build Path`
+   Eclipse: From the _Package Explorer_ window, select and right-click the JAR file, then select `Build' and click `Add to Build Path`
 
 ## Usage
 
