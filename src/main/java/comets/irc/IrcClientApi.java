@@ -62,11 +62,13 @@ public class IrcClientApi {
     public static void idle() {
         client.idle();
     };
-    public static void send(String line) {
+    public static void send(String rawLine) {
         /*
+         * Takes raw IRC-formatted lines
+         *
          * This method does not store sent line in post history
          */
-        client.send(line);
+        client.send(rawLine);
     };
     public static String receive() {
         return client.receive();
@@ -75,12 +77,13 @@ public class IrcClientApi {
         return client.processLine(line);
     };
     public static String read() {
-        String line = receive();
-
         return processLine(receive());
     }
     public static void post(String line) {
         /*
+         * Takes a regular string and sends it through a pipeline to get formatted
+         * before going outbound to the IRC server
+         *
          * This method stores each sent line in the post history (ArrayList<String>)
          */
         client.post(line);

@@ -170,11 +170,21 @@ public class IrcClient extends AbstractIrcClient {
 
     @Override
     public String processLine(String line) {
-        if (irc.checkLineType(line).equals(irc.PING)) {
-            silentPong(line);
+        String lineType = irc.checkLineType(line);
+        if (lineType != null) {
+            if (lineType.equals(irc.PING)) {
+                silentPong(line);
+                return null;
+            }
         }
         return irc.reformatLine(line);
     }
+
+    @Override
+    public void send(String line) {
+        super.send(line);
+    }
+
 
     @Override
     public void post(String line) {
@@ -206,6 +216,18 @@ public class IrcClient extends AbstractIrcClient {
         send(irc.quit());
     }
 
+    @Override
+    public void ping() {
+        print(irc.readMessage(irc.getNick(), Constants.PING));
+        send(irc.postMessage(Constants.PING));
+    }
+
+    @Override
+    public void pong() {
+        print(irc.readMessage(irc.getNick(), Constants.PONG));
+        send(irc.postMessage(Constants.PONG));
+    }
+
     public void silentPong(String line) {
         send(irc.pong(line));
     }
@@ -214,8 +236,6 @@ public class IrcClient extends AbstractIrcClient {
     public void updateUserList(ArrayList<String> userList) {
 
     }
-
-
 
     @Override
     public void setCurrentSessionInfo(String provider, String channel,

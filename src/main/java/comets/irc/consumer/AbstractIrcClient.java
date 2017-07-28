@@ -126,16 +126,6 @@ public abstract class AbstractIrcClient implements IrcConsumer {
     }
 
     @Override
-    public void ping() {
-        post(Constants.PING);
-    }
-
-    @Override
-    public void pong() {
-        send(Constants.PONG);
-    }
-
-    @Override
     public void leave() {
         setStateToLeftChannel();
     }
