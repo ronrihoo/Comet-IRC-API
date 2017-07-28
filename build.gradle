@@ -1,5 +1,5 @@
 group 'comets.irc'
-version '20170727'
+version '20170728'
 
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -10,7 +10,7 @@ mainClassName = 'comets.irc.Main'
 
 jar {
     baseName = 'cometirc'
-    version = '20170727'
+    version = '20170728'
 }
 
 sourceCompatibility = 1.8

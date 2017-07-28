@@ -204,9 +204,11 @@ Result:
    
    ```:remote_user!4dd17b5c@gateway/web/freenode/ip.##.###.###.### PRIVMSG #irchacks :hi```
 
-`send(String message)`
+`send(String rawLine)`
 
-   Reshapes the string into an IRC message line and sends it to the connected channel
+   Takes an IRC-formatted line and sends it to the connected channel
+   
+   Does not record the line in post history
 
 `setChannel(String channel)`
 
