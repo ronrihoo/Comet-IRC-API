@@ -97,7 +97,7 @@ Result:
 `disconnect()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Disconnects from server
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 `getPostHistory()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Returns an ArrayList<String> object with all recorded outgoing posts
@@ -105,25 +105,25 @@ Result:
 `getState()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Returns the connection state
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;States:
-&nbsp;&nbsp;&nbsp;&nbsp;* not connected
-&nbsp;&nbsp;&nbsp;&nbsp;* connecting
-&nbsp;&nbsp;&nbsp;&nbsp;* connected
-&nbsp;&nbsp;&nbsp;&nbsp;* disconnected
-&nbsp;&nbsp;&nbsp;&nbsp;* not logged in
-&nbsp;&nbsp;&nbsp;&nbsp;* logging in
-&nbsp;&nbsp;&nbsp;&nbsp;* logged in
-&nbsp;&nbsp;&nbsp;&nbsp;* logged out
-&nbsp;&nbsp;&nbsp;&nbsp;* not joined channel
-&nbsp;&nbsp;&nbsp;&nbsp;* joining channel
-&nbsp;&nbsp;&nbsp;&nbsp;* joined channel
-&nbsp;&nbsp;&nbsp;&nbsp;* left channel
+ * not connected
+ * connecting
+ * connected
+ * disconnected
+ * not logged in
+ * logging in
+ * logged in
+ * logged out
+ * not joined channel
+ * joining channel
+ * joined channel
+ * left channel
 
 `idle()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Listens to channel and prints processed lines to standard output
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;To receive each line elsewhere, build a custom `idle()` method, then use the `read()` and `post(String)` methods
 
 `ignore(String user)`
@@ -161,13 +161,13 @@ Result:
 `ping()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sends a 'ping' message
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;Same as: post("ping");
 
 `pong()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sends a 'pong' message
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;Same as: post("pong");
 
 `post(String message)`
@@ -183,7 +183,7 @@ Result:
 `process(String line)`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Takes a raw line and reshapes it into a more human-readable format
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;```<remote_user> hi```
 
 `quit()`
@@ -193,21 +193,21 @@ Result:
 `read()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Returns the read line after processing it
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;Same as: processLine(receive());
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;```<remote_user> hi```
 
 `receive()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Returns the raw line (no processing or reshaping)
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;```:remote_user!4dd17b5c@gateway/web/freenode/ip.##.###.###.### PRIVMSG #irchacks :hi```
 
 `send(String rawLine)`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Takes an IRC-formatted line and sends it to the connected channel
-&nbsp;&nbsp;&nbsp;&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;Does not record the line in post history
 
 `setChannel(String channel)`
