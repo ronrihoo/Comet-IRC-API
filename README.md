@@ -88,154 +88,154 @@ Result:
 
 `connect()`
 
-   Connects with server and port information set previously using setServer(String) and setPort(int)
+&nbsp;&nbsp;&nbsp;&nbsp;Connects with server and port information set previously using setServer(String) and setPort(int)
 
 `connect(String server, int port)`
 
-   Connects with new server and port information
+&nbsp;&nbsp;&nbsp;&nbsp;Connects with new server and port information
 
 `disconnect()`
 
-   Disconnects from server
-   
+&nbsp;&nbsp;&nbsp;&nbsp;Disconnects from server
+&nbsp;&nbsp;&nbsp;&nbsp;
 `getPostHistory()`
 
-   Returns an ArrayList<String> object with all recorded outgoing posts
+&nbsp;&nbsp;&nbsp;&nbsp;Returns an ArrayList<String> object with all recorded outgoing posts
 
 `getState()`
 
-   Returns the connection state
-   
-   States:
-   * not connected
-   * connecting
-   * connected
-   * disconnected
-   * not logged in
-   * logging in
-   * logged in
-   * logged out
-   * not joined channel
-   * joining channel
-   * joined channel
-   * left channel
+&nbsp;&nbsp;&nbsp;&nbsp;Returns the connection state
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;States:
+&nbsp;&nbsp;&nbsp;&nbsp;* not connected
+&nbsp;&nbsp;&nbsp;&nbsp;* connecting
+&nbsp;&nbsp;&nbsp;&nbsp;* connected
+&nbsp;&nbsp;&nbsp;&nbsp;* disconnected
+&nbsp;&nbsp;&nbsp;&nbsp;* not logged in
+&nbsp;&nbsp;&nbsp;&nbsp;* logging in
+&nbsp;&nbsp;&nbsp;&nbsp;* logged in
+&nbsp;&nbsp;&nbsp;&nbsp;* logged out
+&nbsp;&nbsp;&nbsp;&nbsp;* not joined channel
+&nbsp;&nbsp;&nbsp;&nbsp;* joining channel
+&nbsp;&nbsp;&nbsp;&nbsp;* joined channel
+&nbsp;&nbsp;&nbsp;&nbsp;* left channel
 
 `idle()`
 
-   Listens to channel and prints processed lines to standard output
-   
-   To receive each line elsewhere, build a custom `idle()` method, then use the `read()` and `post(String)` methods
+&nbsp;&nbsp;&nbsp;&nbsp;Listens to channel and prints processed lines to standard output
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;To receive each line elsewhere, build a custom `idle()` method, then use the `read()` and `post(String)` methods
 
 `ignore(String user)`
 
-   Sends request to ignore a specified user
+&nbsp;&nbsp;&nbsp;&nbsp;Sends request to ignore a specified user
 
 `join()`
 
-   Joins previously specified channel
+&nbsp;&nbsp;&nbsp;&nbsp;Joins previously specified channel
 
 `join(String channel)`
 
-   Joins a new channel
+&nbsp;&nbsp;&nbsp;&nbsp;Joins a new channel
 
 `leave()`
 
-   Parts from the current channel
+&nbsp;&nbsp;&nbsp;&nbsp;Parts from the current channel
 
 `login()`
 
-   Logs in using nick and pass information set previously
+&nbsp;&nbsp;&nbsp;&nbsp;Logs in using nick and pass information set previously
 
 `login(String channel, String nick, String pass)`
 
-   Logs in using new channel, nick, and pass
+&nbsp;&nbsp;&nbsp;&nbsp;Logs in using new channel, nick, and pass
 
 `login(String nick, String pass, String realName, String login, int mode)`
 
-   Logs in using new nick, pass, real name, login, and mode
+&nbsp;&nbsp;&nbsp;&nbsp;Logs in using new nick, pass, real name, login, and mode
 
 `logout()`
 
-   Logs nickname out
+&nbsp;&nbsp;&nbsp;&nbsp;Logs nickname out
 
 `ping()`
 
-   Sends a 'ping' message
-   
-   Same as: post("ping");
+&nbsp;&nbsp;&nbsp;&nbsp;Sends a 'ping' message
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Same as: post("ping");
 
 `pong()`
 
-   Sends a 'pong' message
-   
-   Same as: post("pong");
+&nbsp;&nbsp;&nbsp;&nbsp;Sends a 'pong' message
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Same as: post("pong");
 
 `post(String message)`
 
-   Adds the post to history, then reshapes it into an IRC message line and sends it to the connected channel
+&nbsp;&nbsp;&nbsp;&nbsp;Adds the post to history, then reshapes it into an IRC message line and sends it to the connected channel
 
 `print(String line)`
 
-   Takes a string, adds a time-stamp to the beginning of it, using the [HR:MN] format, then prints it to standard output
+&nbsp;&nbsp;&nbsp;&nbsp;Takes a string, adds a time-stamp to the beginning of it, using the [HR:MN] format, then prints it to standard output
 
-   ```[08:00] <remote_user> hi```
-   
+&nbsp;&nbsp;&nbsp;&nbsp;```[08:00] <remote_user> hi```
+
 `process(String line)`
 
-   Takes a raw line and reshapes it into a more human-readable format
-   
-   ```<remote_user> hi```
+&nbsp;&nbsp;&nbsp;&nbsp;Takes a raw line and reshapes it into a more human-readable format
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;```<remote_user> hi```
 
 `quit()`
 
-   Disconnects and drops current connection information (server, port, channel, nick, user list)
+&nbsp;&nbsp;&nbsp;&nbsp;Disconnects and drops current connection information (server, port, channel, nick, user list)
 
 `read()`
 
-   Returns the read line after processing it
-   
-   Same as: processLine(receive());
-   
-   ```<remote_user> hi```
+&nbsp;&nbsp;&nbsp;&nbsp;Returns the read line after processing it
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Same as: processLine(receive());
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;```<remote_user> hi```
 
 `receive()`
 
-   Returns the raw line (no processing or reshaping)
-   
-   ```:remote_user!4dd17b5c@gateway/web/freenode/ip.##.###.###.### PRIVMSG #irchacks :hi```
+&nbsp;&nbsp;&nbsp;&nbsp;Returns the raw line (no processing or reshaping)
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;```:remote_user!4dd17b5c@gateway/web/freenode/ip.##.###.###.### PRIVMSG #irchacks :hi```
 
 `send(String rawLine)`
 
-   Takes an IRC-formatted line and sends it to the connected channel
-   
-   Does not record the line in post history
+&nbsp;&nbsp;&nbsp;&nbsp;Takes an IRC-formatted line and sends it to the connected channel
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Does not record the line in post history
 
 `setChannel(String channel)`
 
-   Sets channel information so that it won't have to be done later
+&nbsp;&nbsp;&nbsp;&nbsp;Sets channel information so that it won't have to be done later
 
 `setNick(String nick)`
 
-   Sets nickname with which to login
+&nbsp;&nbsp;&nbsp;&nbsp;Sets nickname with which to login
 
 `setPort(int port)`
 
-   Sets port number for future connection
-   
+&nbsp;&nbsp;&nbsp;&nbsp;Sets port number for future connection
+
 `setServer(String server)`
 
-   Sets server address for future connection
+&nbsp;&nbsp;&nbsp;&nbsp;Sets server address for future connection
 
 `unignore(String user)`
 
-   Sends request to unignore a specified user
+&nbsp;&nbsp;&nbsp;&nbsp;Sends request to unignore a specified user
 
 `whois(String user)`
 
-   Sends a `whois` request for a specified user
+&nbsp;&nbsp;&nbsp;&nbsp;Sends a `whois` request for a specified user
 
-   Note: must read lines to receive response
-      
+&nbsp;&nbsp;&nbsp;&nbsp;Note: must read lines to receive response
+
 ## Contributing
 
 All pull requests are welcome.
