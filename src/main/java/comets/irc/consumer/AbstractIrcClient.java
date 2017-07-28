@@ -117,7 +117,6 @@ public abstract class AbstractIrcClient implements IrcConsumer {
 
     @Override
     public void post(String line) {
-        ircService.addPostToHistory(line);
         send(line);
     }
 
@@ -133,7 +132,7 @@ public abstract class AbstractIrcClient implements IrcConsumer {
 
     @Override
     public void pong() {
-        post(Constants.PONG);
+        send(Constants.PONG);
     }
 
     @Override

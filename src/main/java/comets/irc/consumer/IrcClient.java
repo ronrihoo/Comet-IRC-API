@@ -170,17 +170,16 @@ public class IrcClient extends AbstractIrcClient {
 
     @Override
     public String processLine(String line) {
+        if (irc.checkLineType(line).equals(irc.PING)) {
+            silentPong(line);
+        }
         return irc.reformatLine(line);
     }
 
     @Override
     public void post(String line) {
         super.post(irc.postMessage(line));
-        print(irc.readMessage(irc.getNick(), line));
-    }
-
-    public void post(String line, boolean useBot) {
-        super.post(irc.postMessage(line));
+        ircService.addPostToHistory(line);
         print(irc.readMessage(irc.getNick(), line));
     }
 
@@ -205,6 +204,10 @@ public class IrcClient extends AbstractIrcClient {
     @Override
     public void disconnect() {
         send(irc.quit());
+    }
+
+    public void silentPong(String line) {
+        send(irc.pong(line));
     }
 
     @Override

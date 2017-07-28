@@ -75,6 +75,8 @@ public class IrcClientApi {
         return client.processLine(line);
     };
     public static String read() {
+        String line = receive();
+
         return processLine(receive());
     }
     public static void post(String line) {
