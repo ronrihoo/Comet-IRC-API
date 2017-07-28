@@ -12,7 +12,7 @@ An Internet Relay Chat API for Java.
 
 3. Move or copy the JAR file into the _lib_ folder
 
-4. Add the JAR to build path
+4. Add the JAR file to the build path
 
    IDEA: From the _Project_ window, select and right-click the _lib_ folder, then click **Add as Library...**
 
