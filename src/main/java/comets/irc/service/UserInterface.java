@@ -95,7 +95,7 @@ public class UserInterface implements UserInterfaceService {
 
     @Override
     public void updateUserList(ArrayList<String> userList) {
-
+        ircSessionInfo.setUserList(userList);
     }
 
     @Override
@@ -119,8 +119,18 @@ public class UserInterface implements UserInterfaceService {
     }
 
     @Override
+    public void addUserToList(String user) {
+        ircSessionInfo.addUserToList(user);
+    }
+
+    @Override
     public ArrayList<String> getPostHistory() {
         return ircSessionInfo.getPostHistory();
+    }
+
+    @Override
+    public ArrayList<String> getUserList() {
+        return ircSessionInfo.getUserList();
     }
 
 }

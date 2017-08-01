@@ -74,14 +74,14 @@ public class IrcServiceImpl implements IrcService {
             }
         } catch (IOException e) {
             userInterface.printReadError();
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         return null;
     }
 
     @Override
     public void sendLine(String line) {
-        if (line != null && line.length() > 0) {
+        if (writer != null && line != null && line.length() > 0) {
             try {
                 writer.write(line);
                 writer.flush();
@@ -118,6 +118,11 @@ public class IrcServiceImpl implements IrcService {
     @Override
     public ArrayList<String> getPostHistory() {
         return userInterface.getPostHistory();
+    }
+
+    @Override
+    public ArrayList<String> getUserList() {
+        return userInterface.getUserList();
     }
 
     @Override

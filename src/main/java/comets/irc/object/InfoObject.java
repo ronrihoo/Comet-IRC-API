@@ -10,7 +10,10 @@ public interface InfoObject {
     void setLoginStatus(String status);
     void setJoinStatus(String status);
     void addPostToHistory(String post);
+    void addUserToList(String user);
+    void setUserList(ArrayList<String> userList);
     ArrayList<String> getPostHistory();
+    ArrayList<String> getUserList();
 
 
 }

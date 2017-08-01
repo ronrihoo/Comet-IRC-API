@@ -7,6 +7,7 @@ public interface IrcService extends ConnectionService, MessageService {
     void quit();
     void addPostToHistory(String post);
     ArrayList<String> getPostHistory();
+    ArrayList<String> getUserList();
     String getTimeStamp();
 
 }

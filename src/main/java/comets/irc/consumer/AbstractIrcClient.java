@@ -1,6 +1,5 @@
 package comets.irc.consumer;
 
-
 import comets.irc.service.IrcService;
 import comets.irc.service.UserInterfaceService;
 import comets.irc.util.Constants;
@@ -142,6 +141,11 @@ public abstract class AbstractIrcClient implements IrcConsumer {
     }
 
     @Override
+    public void addUserToList(String user) {
+        uiService.addUserToList(user);
+    }
+
+    @Override
     public void updateUserList(ArrayList<String> userList) {
         uiService.updateUserList(userList);
     }
@@ -236,6 +240,11 @@ public abstract class AbstractIrcClient implements IrcConsumer {
     @Override
     public ArrayList<String> getPostHistory() {
         return ircService.getPostHistory();
+    }
+
+    @Override
+    public ArrayList<String> getUserList() {
+        return ircService.getUserList();
     }
 
     @Override

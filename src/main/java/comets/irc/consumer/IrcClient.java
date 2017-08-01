@@ -5,8 +5,6 @@ import comets.irc.service.IrcService;
 import comets.irc.service.UserInterfaceService;
 import comets.irc.util.Constants;
 
-import java.util.ArrayList;
-
 public class IrcClient extends AbstractIrcClient {
 
     Irc irc = null;
@@ -50,6 +48,9 @@ public class IrcClient extends AbstractIrcClient {
                 break;
             }
         }
+        if (line == null) {
+            setStateToDisconnected();
+        }
     }
 
     @Override
@@ -64,15 +65,24 @@ public class IrcClient extends AbstractIrcClient {
                 break;
             }
         }
+        if (line == null) {
+            setStateToDisconnected();
+        }
     }
 
     public void login() {
-        login(irc.getNick(), "", "", "", 8);
+        login(irc.getNick(), "", "", "", Constants.DEFAULT_MODE);
     }
 
     @Override
-    public void login(String nick, String pass, String realName, String login,
-                      int mode) {
+    public void login(String nick) {
+        irc.setNick(nick);
+        login(nick, "", "", "", Constants.DEFAULT_MODE);
+    }
+
+    @Override
+    public void login(String nick, String pass, String realName,
+                      String login, int mode) {
         String line = null;
         if (state.equals(Constants.CONNECTED_STATUS)) {
             setStateToLoggingIn();
@@ -116,6 +126,11 @@ public class IrcClient extends AbstractIrcClient {
 
     @Override
     public void join() {
+        join("");
+    }
+
+    @Override
+    public void join(String channel) {
         if (state.equals(Constants.CONNECTED_STATUS) ||
                 state.equals(Constants.NOT_LOGGED_IN_STATUS)) {
             if (channel == null) {
@@ -123,22 +138,46 @@ public class IrcClient extends AbstractIrcClient {
                 setStateToNotJoined();
             } else {
                 setStateToJoining();
-                String line = null;
-                irc.setChannel(channel);
-                send(irc.join());
-                while ((line = receive()) != null) {
-                    irc.listenForJoinConfirmation(line);
-                    if (irc.isJoinedInChannel()) {
-                        print(processLine(line));
-                        setStateToJoined();
-                        break;
-                    } else if (line.contains(irc.NICKNAME_ALREADY_REGISTERED_CODE)) {
-                        print(irc.NICKNAME_ALREADY_REGISTERED);
-                        setStateToNotJoined();
-                        break;
-                    }
-                }
+                sendJoinRequest(channel);
+                startListeningForJoinConfirmation();
             }
+        }
+    }
+
+    private void startListeningForJoinConfirmation() {
+        String line = null;
+        while ((line = receive()) != null) {
+            irc.listenForJoinConfirmation(line);
+            if (irc.isJoinedInChannel()) {
+                joined(line);
+                break;
+            } else if (line.contains(irc.NICKNAME_ALREADY_REGISTERED_CODE)) {
+                nickNameAlreadyRegistered();
+                break;
+            }
+        }
+    }
+
+    private void joined(String line) {
+        print(processLine(line));
+        setStateToJoined();
+    }
+
+    private void nickNameAlreadyRegistered() {
+        print(irc.NICKNAME_ALREADY_REGISTERED);
+        setStateToNotJoined();
+    }
+
+    private void sendJoinRequest(String channel) {
+        if (channel.length() > 0) {
+            // TODO: on this note, build a reconnect() method
+            // save new channel for reconnection
+            irc.setChannel(channel);
+            send(irc.join(channel));
+        }
+        else {
+            // use the preset channel
+            send(irc.join());
         }
     }
 
@@ -170,7 +209,10 @@ public class IrcClient extends AbstractIrcClient {
 
     @Override
     public String processLine(String line) {
-        String lineType = irc.checkLineType(line);
+        String lineType = null;
+        if (line != null) {
+            lineType = irc.checkLineType(line);
+        }
         if (lineType != null) {
             if (lineType.equals(irc.PING)) {
                 silentPong(line);
@@ -233,11 +275,6 @@ public class IrcClient extends AbstractIrcClient {
     }
 
     @Override
-    public void updateUserList(ArrayList<String> userList) {
-
-    }
-
-    @Override
     public void setCurrentSessionInfo(String provider, String channel,
                                       String nick, String connectionStatus,
                                       String loginStatus, String joinStatus) {
@@ -251,17 +288,14 @@ public class IrcClient extends AbstractIrcClient {
         }
     }
 
-    public void keepUpWithConnectionStatus() {
-        if (!irc.isConnected() && !irc.isLoggedIn()) {
-            setStateToNotConnected();
-            updateUserList(irc.getUsers());
-        } else if (irc.isConnected() && !irc.isLoggedIn()) {
-            setStateToNotLoggedIn();
-        } else if (irc.isLoggedIn() && !irc.isJoinedInChannel()) {
-            setStateToNotJoined();
-        } else if (irc.isLoggedIn() && irc.isJoinedInChannel()) {
-            setStateToJoined();
-        }
+    @Override
+    public void setStateToDisconnected() {
+        super.setStateToDisconnected();
+        irc.setConnectionStatus(false);
+   }
+
+    public boolean isConnected() {
+        return irc.isConnected();
     }
 
     @Override
@@ -280,7 +314,6 @@ public class IrcClient extends AbstractIrcClient {
 
     @Override
     public void whois(String user) {
-        System.out.println(user);
         send(irc.whois(user));
     }
 

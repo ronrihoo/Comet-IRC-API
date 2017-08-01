@@ -194,7 +194,11 @@ public class Irc {
 
     public String reformatLine(String str) {
         String line = str;
-        lineType = checkLineType(str);
+        if (str != null) {
+            lineType = checkLineType(str);
+        } else {
+            lineType = null;
+        }
         setWritable(false);
         // null
         if (lineType == null) {
@@ -225,7 +229,7 @@ public class Irc {
         else if (lineType.contains(TYPE[2])) {
             line = extractUserName(str);
             if (line.equals(nick)) {
-                setConnectionStatus(false);
+                setLoginStatus(true);
             } else {
                 addUser(line);
             }
@@ -330,10 +334,14 @@ public class Irc {
     // strings generated for the user
 
     public String extractUserName(String str) {
-        int index = str.indexOf("@");
-        str = str.substring(1, index);
-        index = str.indexOf("!");
-        str = str.substring(0, index);
+        if (str.length() > 0) {
+            int index = str.indexOf("@");
+            str = str.substring(1, index);
+            index = str.indexOf("!");
+            str = str.substring(0, index);
+        } else {
+            str = null;
+        }
         return str;
     }
 

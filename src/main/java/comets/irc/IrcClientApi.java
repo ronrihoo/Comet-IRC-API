@@ -11,75 +11,110 @@ import java.util.ArrayList;
 
 public class IrcClientApi {
 
-    private static IrcConsumer client = null;
+    private IrcConsumer client = null;
+    private String line = null;
 
-    public static void initialize() {
+    public IrcClientApi initialize() {
         if (!hasBeenInitialized()) {
             UserInterfaceService userInterface = new UserInterface();
             IrcInjector ircInjector = new IrcServiceInjector();
             setClient(ircInjector.getConsumer(userInterface));
         }
+        return this;
     }
-    private static void setClient(IrcConsumer ircClient) { client = ircClient; }
-    public static void setNick(String nick) {
-        client.setNick(nick);
-    };
-    public static boolean hasBeenInitialized() {
+    public boolean hasBeenInitialized() {
         return client != null;
     }
-    public static void setChannel(String channel) {
+    private IrcClientApi setClient(IrcConsumer ircClient) {
+        client = ircClient;
+        return this;
+    }
+    public IrcClientApi setNick(String nick) {
+        client.setNick(nick);
+        return this;
+    };
+    public IrcClientApi setChannel(String channel) {
         client.setChannel(channel);
+        return this;
     };
-    public static void setServer(String server) {
+    public IrcClientApi setServer(String server) {
         client.setServer(server);
+        return this;
     };
-    public static void setPort(int port) {
+    public IrcClientApi setPort(int port) {
         client.setPort(port);
+        return this;
     };
-    public static String getState() { return client.getState(); }
-    public static void connect() {
+    public IrcClientApi setSession(String server, int port, String channel, String nick) {
+        client.setServer(server);
+        client.setPort(port);
+        client.setChannel(channel);
+        client.setNick(nick);
+        return this;
+    };
+    public String getState() { return client.getState(); }
+    public IrcClientApi connect() {
         client.connect();
+        return this;
     };
-    public static void connect(String server, int port) {
+    public boolean isConnected() {
+        return client.isConnected();
+    }
+    public IrcClientApi connect(String server, int port) {
         client.connect(server, port);
+        return this;
     };
-    public static void login() {
+    public IrcClientApi login() {
         client.login();
+        return this;
     };
-    public static void login(String channel, String nick, String pass) {
+    public IrcClientApi login(String nick) {
+        client.login(nick);
+        return this;
+    };
+    public IrcClientApi login(String channel, String nick, String pass) {
         client.login(channel, nick, pass);
+        return this;
     };
-    public static void login(String nick, String pass, String realName, String login,
+    public IrcClientApi login(String nick, String pass, String realName, String login,
                int mode) {
         client.login(nick, pass, realName, login, mode);
+        return this;
     };
-    public static void join() {
+    public IrcClientApi join() {
         client.join();
+        return this;
     };
-    public static void join(String channel) {
+    public IrcClientApi join(String channel) {
         client.join(channel);
+        return this;
     };
-    public static void idle() {
+    public IrcClientApi idle() {
         client.idle();
+        return this;
     };
-    public static void send(String rawLine) {
+    public IrcClientApi send(String rawLine) {
         /*
          * Takes raw IRC-formatted lines
          *
          * This method does not store sent line in post history
          */
         client.send(rawLine);
+        return this;
     };
-    public static String receive() {
-        return client.receive();
+    public String receive() {
+        return (this.line = client.receive());
     };
-    public static String processLine(String line) {
-        return client.processLine(line);
+    public String processLine(String line) {
+        return (this.line = client.processLine(line));
     };
-    public static String read() {
-        return processLine(receive());
+    public String read() {
+        /*
+         * Reads, reshapes, and returns the line
+         */
+        return (this.line = processLine(receive()));
     }
-    public static void post(String line) {
+    public IrcClientApi post(String line) {
         /*
          * Takes a regular string and sends it through a pipeline to get formatted
          * before going outbound to the IRC server
@@ -87,58 +122,84 @@ public class IrcClientApi {
          * This method stores each sent line in the post history (ArrayList<String>)
          */
         client.post(line);
+        return this;
     };
-    public static void print(String line) {
+    public IrcClientApi print(String line) {
         client.print(line);
+        return this;
     };
-    public static void ping() {
+    public IrcClientApi printLine() {
+        client.print(this.line);
+        return this;
+    }
+    public IrcClientApi ping() {
         client.ping();
+        return this;
     };
-    public static void pong() {
+    public IrcClientApi pong() {
         client.pong();
+        return this;
     };
-    public static void leave() {
+    public IrcClientApi leave() {
         client.leave();
+        return this;
     };
-    public static void logout() {
+    public IrcClientApi logout() {
         client.logout();
+        return this;
     };
-    public static void disconnect() {
+    public IrcClientApi disconnect() {
         client.disconnect();
+        return this;
     };
-    public static void quit() {
+    public IrcClientApi quit() {
         client.quit();
+        return this;
     };
-    public static void updateUserList(ArrayList<String> userList) {
+    public IrcClientApi updateUserList(ArrayList<String> userList) {
         client.updateUserList(userList);
+        return this;
     };
-    public static void setCurrentSessionInfo(String provider, String channel, String nick,
+    public IrcClientApi setCurrentSessionInfo(String provider, String channel, String nick,
                                String connectionStatus, String loginStatus,
                                String joinStatus) {
         client.setCurrentSessionInfo(provider, channel, nick, connectionStatus,
                 loginStatus, joinStatus);
+        return this;
     };
-    public static ArrayList<String> getPostHistory() {
+    public ArrayList<String> getPostHistory() {
         return client.getPostHistory();
     };
+    public ArrayList<String> getUserList() {
+        return client.getUserList();
+    }
+    public String getLine() { return this.line; }
     // user list events
-    public static void whois(String user) {
+    public IrcClientApi whois(String user) {
         client.whois(user);
+        return this;
     };
-    public static void ignore(String user) {
+    public IrcClientApi ignore(String user) {
         client.ignore(user);
+        return this;
     };
-    public static void unignore(String user) {
+    public IrcClientApi unignore(String user) {
         client.unignore(user);
+        return this;
     };
-    public static void saveUser(String user) {
+    public IrcClientApi saveUser(String user) {
         client.saveUser(user);
+        return this;
     };
-    public static void queryUser(String user) {
+    public IrcClientApi queryUser(String user) {
         client.queryUser(user);
+        return this;
     };
+    public void updateUserList() {
+        client.maintainUserListChanges();
+    }
     // quick tests
-    public static void runQuickTest(String nick) {
+    public void runQuickTest(String nick) {
         if (hasBeenInitialized()) {
             setServer(Constants.DEFAULT_SERVER);
             setPort(Constants.DEFAULT_PORT_INT);

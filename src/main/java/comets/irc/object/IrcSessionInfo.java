@@ -124,8 +124,23 @@ public class IrcSessionInfo implements InfoObject {
     }
 
     @Override
+    public void addUserToList(String user) {
+        userList.add(user);
+    }
+
+    @Override
+    public void setUserList(ArrayList<String> userList) {
+        this.userList = userList;
+    }
+
+    @Override
     public ArrayList<String> getPostHistory() {
         return this.postHistory;
+    }
+
+    @Override
+    public ArrayList<String> getUserList() {
+        return this.userList;
     }
 
     public void setStatus(String status) {

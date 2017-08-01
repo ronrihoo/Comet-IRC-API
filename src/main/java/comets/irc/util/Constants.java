@@ -9,6 +9,7 @@ public class Constants {
     public static final String DEFAULT_CHANNEL = "#irchacks";
     public static final String DEFAULT_PORT = "6667";
     public static final int DEFAULT_PORT_INT = 6667;
+    public static final int DEFAULT_MODE = 8;
 
     public static final String PING = "ping";
     public static final String PONG = "pong";

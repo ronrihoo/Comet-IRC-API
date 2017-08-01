@@ -13,6 +13,7 @@ public interface IrcConsumer {
     void connect();
     void connect(String server, int port);
     void login();
+    void login(String nick);
     void login(String channel, String nick, String pass);
     void login(String nick, String pass, String realName, String login,
                int mode);
@@ -30,6 +31,7 @@ public interface IrcConsumer {
     void logout();
     void disconnect();
     void quit();
+    void addUserToList(String user);
     void updateUserList(ArrayList<String> userList);
     void setStateToConnecting();
     void setStateToConnected();
@@ -46,13 +48,16 @@ public interface IrcConsumer {
     void setCurrentSessionInfo(String provider, String channel, String nick,
                                String connectionStatus, String loginStatus,
                                String joinStatus);
+    boolean isConnected();
     ArrayList<String> getPostHistory();
+    ArrayList<String> getUserList();
     // user list events
     void whois(String user);
     void ignore(String user);
     void unignore(String user);
     void saveUser(String user);
     void queryUser(String user);
+    void maintainUserListChanges();
     // client
     IrcConsumer getIrcClient();
 

@@ -23,6 +23,8 @@ public interface UserInterfaceService {
     void setCurrentLoginStatus(String status);
     void setCurrentJoinStatus(String status);
     void addPostToHistory(String post);
+    void addUserToList(String user);
     ArrayList<String> getPostHistory();
+    ArrayList<String> getUserList();
 
 }

@@ -63,7 +63,7 @@ Example:
 ```java
     public static void idle(IrcClientApi client) {
         String line = null;
-        while(true) {
+        while(client.isConnected()) {
             line = client.read();
             if (line != null) {
                 client.print(line);
@@ -84,6 +84,43 @@ Result:
 [08:00] <comet_irc_api> pong
 ```
 
+## A Simple Full Example
+
+```java
+import comets.irc.IrcClientApi;
+
+public class Main {
+
+    public static void main(String[] args) {
+        startIrcClient();
+    }
+
+    private static void startIrcClient() {
+        IrcClientApi client = new IrcClientApi();
+        client.initialize()
+                .connect("irc.freenode.net", 6667)
+                .login("my_nickname")
+                .join("#irchacks");
+        idle(client);
+    }
+
+    private static void idle(IrcClientApi client) {
+        String line = null;
+        while(client.isConnected()) {
+            line = client.read();
+            if(line != null) {
+                client.print(line);
+                if(line.contains("ping")) {
+                    client.post("pong");
+                }
+            }
+            client.updateUserList();
+        }
+    }
+
+}
+```
+
 ## API Reference
 
 `connect()`
@@ -97,6 +134,10 @@ Result:
 `disconnect()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Disconnects from server
+
+`getLine()`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Returns the current line
 
 `getPostHistory()`
 
@@ -120,6 +161,12 @@ Result:
  * joined channel
  * left channel
 
+`getUserList()`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Returns an ArrayList<String> object containing the names of users present on the current channel
+
+&nbsp;&nbsp;&nbsp;&nbsp;In order to receive an updated and accurate userlist, the `updateUserList()` method must be invoked upon reading each incoming line
+ 
 `idle()`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Listens to channel and prints processed lines to standard output
@@ -129,6 +176,12 @@ Result:
 `ignore(String user)`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sends request to ignore a specified user
+
+`isConnected()`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Returns a boolean value that indicates the connection status
+
+&nbsp;&nbsp;&nbsp;&nbsp;At this time, this method returns true for both _connected_ and _connecting_ states
 
 `join()`
 
@@ -144,7 +197,11 @@ Result:
 
 `login()`
 
-&nbsp;&nbsp;&nbsp;&nbsp;Logs in using nick and pass information set previously
+&nbsp;&nbsp;&nbsp;&nbsp;Logs in using nick and password information set previously
+
+`login(String nick)`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Logs in using new nick
 
 `login(String channel, String nick, String pass)`
 
@@ -180,6 +237,12 @@ Result:
 
 &nbsp;&nbsp;&nbsp;&nbsp;```[08:00] <remote_user> hi```
 
+`printLine()`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Prints the current line
+
+&nbsp;&nbsp;&nbsp;&nbsp;Same as: `print(line)`
+
 `process(String line)`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Takes a raw line and reshapes it into a more human-readable format
@@ -194,7 +257,7 @@ Result:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Returns the read line after processing it
 
-&nbsp;&nbsp;&nbsp;&nbsp;Same as: processLine(receive());
+&nbsp;&nbsp;&nbsp;&nbsp;Same as: `processLine(receive())`
 
 &nbsp;&nbsp;&nbsp;&nbsp;```<remote_user> hi```
 
@@ -226,9 +289,19 @@ Result:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sets server address for future connection
 
+`setSession(String server, int port, String channel, String nick)`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Sets server, port, channel, and nick for future connection
+
 `unignore(String user)`
 
 &nbsp;&nbsp;&nbsp;&nbsp;Sends request to unignore a specified user
+
+`updateUserList()`
+
+&nbsp;&nbsp;&nbsp;&nbsp;Keeps track of the users logged into the current channel by reading the lines for user activity
+
+&nbsp;&nbsp;&nbsp;&nbsp;This method is meant to be independent of the `NAMES` command, which requests the usernames from the server
 
 `whois(String user)`
 
